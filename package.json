@@ -20,9 +20,13 @@
   "homepage": "https://github.com/corinajacobson/express-gallery-1#readme",
   "dependencies": {
     "body-parser": "^1.14.2",
+    "cookie-parser": "^1.4.1",
     "express": "^4.13.4",
+    "express-session": "^1.13.0",
     "jade": "^1.11.0",
     "method-override": "^2.3.5",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "pg": "^4.4.4",
     "pg-hstore": "^2.3.2",
     "sequelize": "^3.18.0"
@@ -30,6 +34,7 @@
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-connect": "^2.3.1",
+    "gulp-nodemon": "^2.0.6",
     "gulp-sass": "^2.1.1"
   }
 }

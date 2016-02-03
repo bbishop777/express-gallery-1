@@ -6,7 +6,7 @@ var db = require('./../models');
 var Users = db.Users;
 
 
-router.route('/signup')
+router.route('/login')
   .post( function (req, res) {
     Users.create({
       username: req.body.username,
@@ -14,7 +14,6 @@ router.route('/signup')
       email_address: req.body.email_address
     })
     .then(function (user) {
-      console.log(user, "HEEEEYYY");
       res.json(user);
     })
     .catch(function(error) {

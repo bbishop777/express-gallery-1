@@ -12,6 +12,7 @@
 // 0. RESETS & FRAMEWORKS
 @import "partials/reset";
 
+
 * {
   box-sizing: border-box;
   font-style: Oswald;
@@ -20,81 +21,229 @@
 
 // VARIABLES & MIXINS
 $mobile-width: 95%;
-// Mixins
+
 
 // MEDIA QUERY RANGES
-$medium: "only screen and (min-width: 630px)";
-$large: "only screen and (min-width:900px)";
+//...$small: "only screen and (min-width: 300px)";
+//...$medium: "only screen and (min-width: 630px)";
+$large: "only screen and (min-width:800px)";
 
 // GENERAL STYLES
 body {
   background-color: #F5F5F5;
-  background-image: url(./../assets/Puppy_pavement.jpg);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-image: url(./../assets/puppyw_ball.jpg);
   background-repeat: no-repeat;
   background-size: 100% 250px;
 }
 
-#header_div {
-  height: 200px;
-  width: 100%
+// #header_div {  //now called .main which puts it in same class as that on index and layout
+//   height: 200px;
+//   width: 100%
 
 
-}
+// }
 
 h1 {
-margin-top: 60px;
-text-align: center;
-color: #878288;
-font-size: 48px;
-font-family: Verdana, Geneva, sans-serif;
+  margin-top: 30px;  //was 60px
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  color: #7a757C; // was color: #878288;
+  font-size: 40px;  //was 48px
+  font-weight: 800;
+  text-transform: uppercase;
+
+  //font-family: Verdana, Geneva, sans-serif;
+
+  // @media #{$large} {
+  //   padding: 0;
+  //   border-top: 1px solid #eee;
+  // }
 }
 
 h3{
-text-align: center;
-color: #878288;
-font-size: 18px;
-font-weight: bold;
-font-family: Verdana, Geneva, sans-serif;
+  margin-top: 40px;
+  //text-align: center;
+  color: #989BA5;   ///was #878288;
+  font-weight: bold;
+  font-size: 18px;
+  //font-family: Verdana, Geneva, sans-serif;
+  margin-bottom: 15px;
 }
 
-.photoBackground{
-  padding: 10px;
+#new-post {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  a {
+    margin: 0 auto;
+    font-family: sans-serif;
+    color: #878288;
+    margin-top: 30px;
+
+    p {
+      text-align: center;
+    }
+  }
+  a:hover {
+  color: #333;
+  }
+
+}
+
+.main{
+    margin: 0 auto;
+    width: 75%;
+  // background-image: url(./../assets/marble.jpeg);
+  // background-repeat: no-repeat;
+  // background-size: 100% 100%;
+  //padding: 10px;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   min-height: 250px;
-  margin: 25px;
+  margin-top: 120px;
+
+//   @media #{$medium} {
+//     flex-flow: no wrap;
+//     justify-content: space-around;
+//     min-height: 100px;
+//   }
 
 }
-.image-container {
-  flex: 0 0 26.5%;
-  margin: 10px 10px;
-  // height: 100%;
-  padding: 10px;
-  // margin-bottom: 2.5%;
-  // margin-left: 1.75%;
-  // margin-right: 1.75%;
 
-  img {
-    max-width: 100%;
-    width: 100%;
-    max-height: 100%;
-  }
+.work{
+  padding :4px;
+}
 
-  ul {
-    width: 100%;
-    list-style-type: none;
-    font-family: Verdana, Geneva, sans-serif;
-    color: #878288;
-    font-size: 0.75em;
-    text-align: center;
-    padding-top: 10px;
+ul {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  //....list-style-type: none;
+  //...font-family: Verdana, Geneva, sans-serif;
+  // ....color: #878288;
+  // ...font-size: 0.75em;
+  text-align: center;
+  // ...padding-top: 10px;
+  li {
+    font-size: 14px;
+    color: #989BA5;
+    word-wrap: break-word;
+    padding-top:10px;
     a {
-      color: #888888;
+      text-decoration: underline;
+      //color: #888888;
     }
   }
-
 }
 
-#mainHeader {
+// .button li {
+//   display: inline;
+//   width: auto;
+//   float: left;
+//   padding-right: 10px;
+// }
+
+.thumbnail {
+  overflow: hidden;
+  margin-top: 10px;
+  background-color: black;
+  //..outline: solid 4px black;
+  position: relative;
+  width: 100%;
+  height: 15rem;
+  margin: 0 auto;
+  margin-top: 10px;
+  border: 20px solid transparent;
+  border-image-source: url(./../assets/brightmetaltext.jpg);
+  border-image-slice: 50 65;
+  box-shadow: 10px 10px 10px 10px grey;
+  flex: 0 0 26.5%;
+  margin: 10px 10px;
+  padding: 5px;
 }
+
+.thumbnail img {
+  max-width: 100%;
+  width: 100%;
+  max-height: 100%;
+  position: absolute;
+  left: 50%;
+  top:60%;
+  height: 100%;
+  width: auto;
+  -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+}
+
+.thumbnail img.portrait {
+  width: 100%;
+  height: auto;
+}
+
+#single-main {
+  margin: 0 auto;
+  width: 84%;
+}
+.single-feature {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.single-feature img {
+  width: 100%;
+}
+
+.button {
+  -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+  -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+  box-shadow:inset 0px 1px 0px 0px #ffffff;
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf));
+  background:-moz-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+  background:-webkit-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+  background:-o-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+  background:-ms-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+  background:linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf',GradientType=0);
+  background-color:#ededed;
+  -moz-border-radius:6px;
+  -webkit-border-radius:6px;
+  border-radius:6px;
+  border:1px solid #dcdcdc;
+  display:inline-block;
+  cursor:pointer;
+  color:#777777;
+  font-family:Arial;
+  font-size:15px;
+  font-weight:bold;
+  padding:6px 9px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #ffffff;
+}
+.button:hover {
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed));
+  background:-moz-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+  background:-webkit-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+  background:-o-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+  background:-ms-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+  background:linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed',GradientType=0);
+  background-color:#dfdfdf;
+}
+.button:active {
+  position:relative;
+  top:1px;
+}
+
+
+#footer {
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+
+

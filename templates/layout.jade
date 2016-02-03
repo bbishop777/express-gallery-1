@@ -6,6 +6,11 @@ head
   title Express Gallery
   link(rel="stylesheet", href="./../css/styles.css")
 body
-  div(id="header_div")
+  div.main
     h1 Express Gallery
+  button.button(href="/gallery/new") New Post
+  if !onLoginPage
+    form#logoutForm(method='POST' action="/logout")
+      input(type='hidden', name='_method', value='DELETE')
+      button.button(type="submit", value="submit") Logout
   block content

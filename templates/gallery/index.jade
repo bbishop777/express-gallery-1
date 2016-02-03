@@ -1,14 +1,15 @@
 extends ./../layout
 block content
-  div#mainHeader
-    h3
-      a(href="/gallery/new") New Picture Post
-  div.photoBackground
+  #new-post
+    a(href="/gallery/new")
+      p New Post
+  .main
     each photo in Photos
-      div.image-container
-        a(href="/gallery/#{photo.id}")
-          img(src="#{photo.link}")
-        ul.list
-          li Post by: #{photo.author} -
-            br
-            //- a(href="#{photo.link}") #{photo.link}
+      .work
+        .thumbnail
+          a(href="/gallery/#{photo.id}")
+            img.portrait(src="#{photo.link}")
+        ul
+          li #{photo.author}&nbsp;- #{photo.link}
+    #footer
+      p &nbsp;

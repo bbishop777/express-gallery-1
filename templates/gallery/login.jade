@@ -1,0 +1,9 @@
+extends ./../layout
+
+block content
+  form#newForm(method='POST')
+    p Username:
+      input(type="text", name="username", placeholder="Username" autofocus)
+    p Password:
+      input(type="text", name="password", placeholder="Password")
+    input(type="submit" value="Enter")
