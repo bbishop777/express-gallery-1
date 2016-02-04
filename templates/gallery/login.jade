@@ -1,9 +1,14 @@
 extends ./../layout
 
 block content
-  form#newForm(method='POST')
+  form#newForm(method='POST', action="/login")
     p Username:
       input(type="text", name="username", placeholder="Username" autofocus)
     p Password:
       input(type="text", name="password", placeholder="Password")
     input(type="submit" value="Enter")
+  div
+    h3 Not Registered?  Click below and we will get you set up!
+    div
+      span
+        a.button(href="/register") Register!

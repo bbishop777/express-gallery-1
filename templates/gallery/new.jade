@@ -1,11 +1,15 @@
 extends ./../layout
 
 block content
+  Br
   form#newForm(method='POST')
     p Author:
       input(type="text", name="author", placeholder="Name of Author" autofocus)
+      Br
     p Link:
       input(type="text", name="link", placeholder="URL of Image")
+      Br
     p Description:
       input(type="text", name="description", placeholder="Description")
-    input(type='submit' value='Submit Photo')
+      Br
+    button.button(name="Submit" type="submit", value="Submit Photo")

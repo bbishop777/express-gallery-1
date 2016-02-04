@@ -2,13 +2,23 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var db = require('./../models');
+var passport = require('passport');
 
 var Photo = db.Photo;
+
+function isAuthenticated(req, res, next) {
+  console.log(req.isAuthenticated());
+  if(!req.isAuthenticated()) {
+    return res.redirect('/login');
+  }
+  return next();
+}
 
 // router for /
 router.route('/')
   .get(function(req, res) {
-    if(req.user) {
+    console.log(req.session, 'Reaches gallery/');
+    //if(req.user) {
       Photo.findAll()
     .then(function(data) {
       res.render('gallery/index', {
@@ -18,54 +28,41 @@ router.route('/')
     .catch(function(error) {
       console.log(error);
     });
-    } else {
-      res.redirect('/');
-    }
-  })
-  .post(function (req, res) {
-    if(req.user) {
-      Photo.create({
-        author: req.body.author,
-        link: req.body.link,
-        description: req.body.description
-      })
-        .then(function (photo) {
-          res.json(photo);
-        });
-    } else {
-      res.redirect('/');
-    }
+    //} else {
+     // res.redirect('/');
+    //}
 });
 
 
 // router for /new
-router.route('/new')
-  .get(function(req, res) {
-    if(req.user) {
+router.route('/new' )
+  .get(isAuthenticated, function(req, res) {
+    //if(req.user) {
       res.render('gallery/new');
-    } else {
-      res.redirect('/');
-    }
+    //} else {
+    //  res.redirect('/');
+   // }
   })
-  .post(function (req, res) {
-    if(req.user) {
+  .post(isAuthenticated, function (req, res) {
+    //if(req.user) {
       Photo.create({
         author: req.body.author,
         link: req.body.link,
-        description: req.body.description
+        description: req.body.description,
+        UserId: req.user.id
       })
       .then(function (data) {
         res.redirect('/gallery');
       });
-    } else {
-      res.redirect('/');
-    }
+    //} else {
+     // res.redirect('/');
+    //}
   });
 
 // router for /gallery/:id
 router.route('/:id')
   .get(function(req, res) {
-    if(req.user){
+    //if(req.user){
       Photo.find({
         where : {
           id : req.params.id
@@ -80,13 +77,12 @@ router.route('/:id')
       console.log(err);
       res.send({ 'success': false});
     });
-    } else {
-      res.redirect('/');
-    }
+   // } else {
+      //res.redirect('/');
+   // }
   })
-  .put(function(req, res) {
-    console.log("Whyyyy");
-    if(req.user){
+  .put(isAuthenticated, function(req, res) {
+   // if(req.user){
       Photo.findById(req.params.id)
       .then(function(data) {
         data.update({
@@ -104,11 +100,11 @@ router.route('/:id')
         console.log(err);
         res.send({'success': false});
       });
-    } else {
-      res.redirect('/');
-    }
+    //} else {
+      //res.redirect('/');
+    //}
   })
-  .delete(function(req,res){
+  .delete(isAuthenticated, function(req,res){
      Photo.destroy({
       where : {
         id : req.params.id
@@ -119,8 +115,8 @@ router.route('/:id')
     });
   });
 
-router.get('/:id/edit', function(req, res) {
-  if(req.user) {
+router.get('/:id/edit', isAuthenticated, function(req, res) {
+  //if(req.user) {
     Photo.find({
         where : {
           id : req.params.id
@@ -131,9 +127,9 @@ router.get('/:id/edit', function(req, res) {
         "Photo": data.dataValues
       });
     });
-  } else {
-      res.redirect('/');
-  }
+ // } else {
+      //res.redirect('/');
+//  }
 });
 
 module.exports = router;

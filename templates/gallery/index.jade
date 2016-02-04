@@ -1,8 +1,9 @@
 extends ./../layout
 block content
   #new-post
-    a(href="/gallery/new")
-      p New Post
+    if !onLoginPage
+      span
+        a.button(href="/gallery/new") New Post
   .main
     each photo in Photos
       .work

@@ -8,7 +8,6 @@ head
 body
   div.main
     h1 Express Gallery
-  button.button(href="/gallery/new") New Post
   if !onLoginPage
     form#logoutForm(method='POST' action="/logout")
       input(type='hidden', name='_method', value='DELETE')

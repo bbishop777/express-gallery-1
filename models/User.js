@@ -1,3 +1,4 @@
+//change to singular User and then do so on server and anywhere else
 module.exports = function(sequelize, DataTypes) {
   var Users = sequelize.define("Users", {
     username: {

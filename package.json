@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/corinajacobson/express-gallery-1#readme",
   "dependencies": {
+    "bcrypt": "^0.8.5",
     "body-parser": "^1.14.2",
     "cookie-parser": "^1.4.1",
     "express": "^4.13.4",

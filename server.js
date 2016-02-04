@@ -12,6 +12,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var SECRETKEYS = [];
 var cookieParser = require('cookie-parser');
 var app = express();
+var bcrypt = require('bcrypt');
 
 app.use(bodyParser.urlencoded({
   extended : true
@@ -48,39 +49,45 @@ passport.deserializeUser(function(user, done) {
 });
 
 function authenticate(username, password, data) {
-  if( username === data.username && password == data.password) {
-    return true;
+  console.log(username, data.username);
+  if(username === data.username)  {
+    return compare(password, data);
   } else {
+    console.log('Usernames dont match');
     return false;
   }
 }
 
-
-
+function compare(password, data) {
+  return new Promise(function (resolve, reject) {
+    bcrypt.compare(password, data.password, function (err, res){
+      resolve(res);
+    });
+  });
+}
 
 passport.use(new LocalStrategy(function(username, password, done) {
-  db.Users.findOne({username : username })
+  console.log('Local Strategy in action');
+  db.Users.find({
+    where:
+    {
+      username : username
+    }
+  })
     .then(function(data) {
       var isAuthenticated = authenticate(username, password, data);
+      console.log(isAuthenticated);
       if(!isAuthenticated) {
+        console.log('Not Working');
         return done(null, false);
       }
+      console.log('Authenticated');
       return done(null, data);
     })
     .catch(function(error) {
       console.log(error);
     });
 }));
-
-//can move get and post to a router middleware made for logins
-app.get('/login', function (req, res) {
-  if(req.user) {
-    res.redirect('/');
-  }
-  res.render('gallery/login', {
-    onLoginPage: true
-  });
-});
 
 app.post('/login', passport.authenticate('local',
   {
@@ -89,20 +96,36 @@ app.post('/login', passport.authenticate('local',
 
   }));
 
-app.get('/', function(req,res) {
-  if(req.user) {
-    return res.redirect('/gallery');
-  }
-  res.redirect('/login');
-});
 
-app.use(function(req, res, next) {
-  console.log(req.url);
-  next();
-});
+// app.use(function(req, res, next) {
+//   console.log(req.url, req.url ==='/user/register', 'Should happen everytime');
+//   if(!req.user && (req.url !== '/login')) {
+//     res.redirect('/login');
+//   } else if(!req.user && (req.url !== '/user/register')) {
+//     console.log('Here?');
+//     res.redirect('/user/register');
+//   } else {
+//     next();
+//   }
+// });
+
 app.use('/gallery', gallery);
 
-app.use('/user', user);
+app.use(user);
+
+function isAuthenticated(req, res, next) {
+  if(!req.isAuthenticated()) {
+    return res.redirect('/login');
+  }
+  return next();
+}
+
+app.get('/', function(req,res) {
+  return res.redirect('/gallery');
+});
+
+
+
 
 app.delete('/logout', function(req, res) {
   req.logout();
